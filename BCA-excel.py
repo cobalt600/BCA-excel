@@ -18,12 +18,23 @@ ws_new = wb.create_sheet(index=0, title='Result')
 
 ws = wb["Linear regression fit"]
 ws2 = wb["Result"]
+
 for i in range(3,10):
     copy = ws.cell(row = i, column = 1).value
     #Linear~のA3:A10の情報をコピー
     ws2.cell(row = i-2, column = 1, value = copy)
     #Valueに指定した値を指定先の列に貼り付ける
 i += 1
+
+for i in range(12,19):
+    for j in range(1,4):
+        copy = ws.cell(row = i, column = j).value
+        #Linear~のA12:C18の情報をコピー
+        ws2.cell(row = i-11, column = j+5, value = copy)
+        #Valueに指定した値を指定先の列に貼り付ける
+i += 1
+j += 1
+
 
 
 wb.save(filepath)
