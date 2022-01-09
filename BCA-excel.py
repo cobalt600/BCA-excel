@@ -15,6 +15,7 @@ from openpyxl.styles.borders import Border, Side
 from openpyxl.styles import Font
 from openpyxl.styles.alignment import Alignment
 
+import xlwings as xw
 import zipfile
 import shutil
 import os
@@ -102,12 +103,18 @@ sheet.column_dimensions['K'].width = 7
 sheet.column_dimensions['L'].width = 7
 sheet.column_dimensions['M'].width = 7
 
-#印刷領域の指定（列が1枚に収まるように）と上書き保存
+#印刷領域の指定（列が1枚に収まるように）して上書き保存
 ws1.page_setup.fitToWidth = 1
 ws1.page_setup.fitToHeight = 0
 ws1.sheet_properties.pageSetUpPr.fitToPage = True
-
 wb.save(filepath)
+
+#xlwingsを使ってPDF出力
+wb = xw.Book('sample.xlsx')
+sheet = wb.sheets['Result']
+path = os.getcwd()
+sheet.to_pdf('sample.pdf')
+wb.close()
 
 #最初に作られたImage.pngが保存されているディレクトリを削除する
 shutil.rmtree('xl/')
